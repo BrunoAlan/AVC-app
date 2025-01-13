@@ -25,7 +25,6 @@ export default function Index() {
         }
     }, [url]);
 
-
     return (
         <View style={{ flex: 1, marginTop: top }}>
             <Stack.Screen options={{ headerShown: false }} />
