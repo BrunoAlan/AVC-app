@@ -17,6 +17,9 @@ export default function Index() {
         }
         const { queryParams } = Linking.parse(url);
         const token = queryParams?.token as string;
+        router.navigate({
+            pathname: '/unauthorized',
+        });
         if (token) {
             router.navigate({
                 pathname: '/[logedToken]',
