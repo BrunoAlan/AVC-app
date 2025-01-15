@@ -4,6 +4,7 @@ import WebView from 'react-native-webview';
 import * as Linking from 'expo-linking';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { View } from 'react-native';
+import { StorageAdapter } from '../config/adapters/storage-adapter';
 
 export default function Index() {
     const { top } = useSafeAreaInsets();
@@ -21,6 +22,7 @@ export default function Index() {
             pathname: '/unauthorized',
         });
         if (token) {
+            StorageAdapter.setItem('token', token);
             router.navigate({
                 pathname: '/[logedToken]',
                 params: { logedToken: token },
