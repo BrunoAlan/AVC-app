@@ -17,7 +17,6 @@ const LogedToken = () => {
         queryFn: getUser,
         enabled: !!token,
     });
-    console.log(token);
 
     return (
         <View style={{ flex: 1, marginTop: top }}>
