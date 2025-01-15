@@ -4,17 +4,26 @@ import { useLanguage } from '../../providers/Language.provider';
 import i18next from 'i18next';
 import { CustomText } from '@/src/components/CustomText';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useQuery } from '@tanstack/react-query';
+import { getUser } from '@/src/actions/user/get-user';
 
 const LogedToken = () => {
     const { logedToken: token } = useLocalSearchParams();
     const { currentLanguage, changeLanguage } = useLanguage();
     const { top } = useSafeAreaInsets();
 
+    const { data } = useQuery({
+        queryKey: ['user'],
+        queryFn: getUser,
+        enabled: !!token,
+    });
+    console.log(token);
+
     return (
         <View style={{ flex: 1, marginTop: top }}>
             <CustomText>{token?.toString()}</CustomText>
             {/* Mostrar el texto traducido */}
-            <CustomText>{i18next.t('bf.contactUs')}</CustomText>
+            <CustomText>{JSON.stringify(data, null, 2)}</CustomText>
 
             {/* Botón para cambiar el idioma */}
             <Pressable
