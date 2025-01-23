@@ -3,39 +3,49 @@ import { useEffect, useState } from 'react';
 import WebView from 'react-native-webview';
 import * as Linking from 'expo-linking';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Pressable, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { StorageAdapter } from '../config/adapters/storage-adapter';
 
 export default function Index() {
     const { top } = useSafeAreaInsets();
     const router = useRouter();
-
     const url = Linking.useURL();
 
+    useEffect(() => {
+        if (!url) {
+            return;
+        }
+        const { queryParams } = Linking.parse(url);
+        (async () => {
+            const token =
+                (queryParams?.token as string) ||
+                (await StorageAdapter.getItem('token'));
+            if (token) {
+                await StorageAdapter.setItem('token', token);
+                router.navigate({
+                    pathname: '/[logedToken]',
+                    params: { logedToken: token },
+                });
+            }
+        })();
+    }, [url]);
+
     return (
-        <View
-            style={{
-                flex: 1,
-                marginTop: top,
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
+        <View style={{ flex: 1, marginTop: top }}>
             <Stack.Screen options={{ headerShown: false }} />
-            <Pressable
-                onPress={() => {
-                    router.navigate({
-                        pathname: '/login',
-                    });
-                }}
+            <WebView
+                incognito={false}
                 style={{
-                    padding: 10,
-                    backgroundColor: 'blue',
-                    borderRadius: 5,
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }}
-            >
-                <Text>login</Text>
-            </Pressable>
+                userAgent='o'
+                source={{
+                    uri: 'https://login-dev.kognitiv.com/login?method=POST&service=https://echo-hbe-api-dev.kognitiv.com/login/?url=exp://192.168.0.206:8081',
+                }}
+                allowsBackForwardNavigationGestures={true}
+            ></WebView>
         </View>
     );
 }
