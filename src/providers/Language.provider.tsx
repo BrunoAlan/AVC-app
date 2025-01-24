@@ -16,7 +16,7 @@ export const i18nextInstance = i18next.init({
     compatibilityJSON: 'v3',
     ns: undefined,
     fallbackLng: 'en',
-    lng: 'ar',
+    lng: 'en',
     resources: translations,
 });
 

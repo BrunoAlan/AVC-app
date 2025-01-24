@@ -23,8 +23,7 @@ export default function Index() {
             if (token) {
                 await StorageAdapter.setItem('token', token);
                 router.navigate({
-                    pathname: '/[logedToken]',
-                    params: { logedToken: token },
+                    pathname: '/(drawer)/(tabs)/home',
                 });
             }
         })();
