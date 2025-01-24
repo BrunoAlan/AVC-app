@@ -19,7 +19,7 @@ const LogedToken = () => {
     });
 
     return (
-        <View className='flex flex-1 bg-red-300'>
+        <View className='flex flex-1 px-2' style={{ marginTop: top }}>
             <Text className='native:text-lg'>{token?.toString()}</Text>
             <Button
                 variant={'default'}

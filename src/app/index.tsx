@@ -35,11 +35,7 @@ export default function Index() {
             <Stack.Screen options={{ headerShown: false }} />
             <WebView
                 incognito={false}
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
+                className='flex flex-1'
                 userAgent='o'
                 source={{
                     uri: 'https://login-dev.kognitiv.com/login?method=POST&service=https://echo-hbe-api-dev.kognitiv.com/login/?url=exp://192.168.0.206:8081',

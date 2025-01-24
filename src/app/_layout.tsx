@@ -11,10 +11,10 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={queryClient}>
             <LanguageProvider>
-                <Stack screenOptions={{ headerShown: true }}>
+                <Stack screenOptions={{ headerShown: false }}>
                     <Stack.Screen name='index' />
                     <Stack.Screen name='unauthorized' />
-                    <Stack.Screen name='(protected)/[logedToken]' />
+                    <Stack.Screen name={'(protected)/[logedToken]'} />
                 </Stack>
             </LanguageProvider>
         </QueryClientProvider>
