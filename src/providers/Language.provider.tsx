@@ -59,5 +59,5 @@ export default function LanguageProvider({ children }: Props) {
         </LanguageContext.Provider>
     );
 }
-
+// Hook to access language context
 export const useLanguage = () => useContext(LanguageContext);
