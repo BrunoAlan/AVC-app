@@ -1,10 +1,10 @@
+import { Text } from '@/components/ui/text';
 import { View } from 'react-native';
-import { CustomText } from '../components/CustomText';
 
 function Unauthorized() {
     return (
         <View>
-            <CustomText>unauthorized</CustomText>
+            <Text>unauthorized</Text>
         </View>
     );
 }
