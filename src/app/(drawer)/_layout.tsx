@@ -6,10 +6,14 @@ import { useRouter } from 'expo-router';
 import CustomDrawer from '@/components/drawer/DrawerContent';
 export default function Layout() {
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView>
             <Drawer
                 screenOptions={{
                     headerShown: false,
+                    drawerItemStyle: {
+                        marginHorizontal: 15,
+                        borderRadius: 0,
+                    },
                 }}
                 drawerContent={CustomDrawer}
             >
@@ -17,7 +21,6 @@ export default function Layout() {
                     name='(tabs)'
                     options={{
                         drawerLabel: 'Tabs',
-                        // drawerItemStyle: { display: 'none' },
                     }}
                 />
             </Drawer>
