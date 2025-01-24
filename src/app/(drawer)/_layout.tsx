@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/drawer';
 import { StorageAdapter } from '@/src/config/adapters/storage-adapter';
 import { useRouter } from 'expo-router';
+import { View } from 'react-native';
 
 export default function Layout() {
     const router = useRouter();
@@ -16,16 +17,15 @@ export default function Layout() {
             <Drawer
                 screenOptions={{ headerShown: false }}
                 drawerContent={(props) => (
-                    <DrawerContentScrollView
-                        className='flex flex-1 bg-red-300 px-4'
-                        {...props}
-                    >
+                    <DrawerContentScrollView {...props} style={{ flex: 1 }}>
                         <DrawerItemList {...props} />
                         <Button
-                            className='self-end'
                             variant={'outline'}
                             onPress={async () => {
                                 await StorageAdapter.removeItem('token');
+                                console.log(
+                                    await StorageAdapter.getItem('token')
+                                );
                                 router.replace('/');
                             }}
                         >

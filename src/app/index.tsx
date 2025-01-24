@@ -22,11 +22,12 @@ export default function Index() {
                 (await StorageAdapter.getItem('token'));
             if (token) {
                 await StorageAdapter.setItem('token', token);
-                router.navigate({
+                router.replace({
                     pathname: '/(drawer)/(tabs)/home',
                 });
             }
         })();
+        return () => {};
     }, [url]);
 
     return (
