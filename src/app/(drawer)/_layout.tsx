@@ -8,16 +8,18 @@ import {
 } from '@react-navigation/drawer';
 import { StorageAdapter } from '@/src/config/adapters/storage-adapter';
 import { useRouter } from 'expo-router';
-import { View } from 'react-native';
-
+import { Menu } from 'lucide-react-native';
 export default function Layout() {
     const router = useRouter();
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <Drawer
-                screenOptions={{ headerShown: false }}
+                screenOptions={{
+                    headerShown: false,
+                    drawerIcon: () => <Menu />,
+                }}
                 drawerContent={(props) => (
-                    <DrawerContentScrollView {...props} style={{ flex: 1 }}>
+                    <DrawerContentScrollView {...props}>
                         <DrawerItemList {...props} />
                         <Button
                             variant={'outline'}

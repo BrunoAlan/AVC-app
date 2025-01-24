@@ -2,6 +2,7 @@ import { Text } from '@/components/ui/text';
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { Tabs } from 'expo-router/tabs';
+import { Menu } from '@/lib/icons/menu';
 
 export default function TabsLayout() {
     const navigation = useNavigation();
@@ -10,13 +11,12 @@ export default function TabsLayout() {
             initialRouteName='home'
             screenOptions={{
                 headerLeft: () => (
-                    <Text
+                    <Menu
+                        className='ml-4 color-black'
                         onPress={() => {
                             navigation.dispatch(DrawerActions.toggleDrawer);
                         }}
-                    >
-                        Hamb
-                    </Text>
+                    />
                 ),
             }}
         >
