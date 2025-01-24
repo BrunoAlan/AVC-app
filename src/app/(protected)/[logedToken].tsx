@@ -1,11 +1,11 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Text, Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { useLanguage } from '../../providers/Language.provider';
-import i18next from 'i18next';
-import { CustomText } from '@/src/components/CustomText';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from '@/src/actions/user/get-user';
+import { Text } from '@/components/ui/text';
+import { Button } from '@/components/ui/button';
 
 const LogedToken = () => {
     const { logedToken: token } = useLocalSearchParams();
@@ -19,20 +19,19 @@ const LogedToken = () => {
     });
 
     return (
-        <View style={{ flex: 1, marginTop: top }}>
-            <CustomText>{token?.toString()}</CustomText>
-            {/* Mostrar el texto traducido */}
-            <CustomText>{JSON.stringify(data, null, 2)}</CustomText>
-
-            {/* Botón para cambiar el idioma */}
-            <Pressable
+        <View className='flex flex-1 bg-red-300'>
+            <Text className='native:text-lg'>{token?.toString()}</Text>
+            <Button
+                variant={'default'}
+                size={'lg'}
+                style={{ marginTop: 20 }}
                 onPress={() => {
                     const newLanguage = currentLanguage === 'en' ? 'ar' : 'en'; // Alternar entre inglés y árabe
                     changeLanguage(newLanguage);
                 }}
             >
-                <CustomText>Cambiar idioma</CustomText>
-            </Pressable>
+                <Text>Change language</Text>
+            </Button>
         </View>
     );
 };
