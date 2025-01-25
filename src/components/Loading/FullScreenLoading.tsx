@@ -1,6 +1,6 @@
 import { Colors } from '@/src/constants/Colors';
 import { View, ActivityIndicator } from 'react-native';
-const FullScreenLoadings = () => {
+const FullScreenLoading = () => {
     return (
         <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -9,4 +9,4 @@ const FullScreenLoadings = () => {
         </View>
     );
 };
-export default FullScreenLoadings;
+export default FullScreenLoading;
