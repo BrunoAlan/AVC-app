@@ -20,6 +20,9 @@ export default function Layout() {
                     name='(tabs)'
                     options={{
                         drawerLabel: 'Tabs',
+                        drawerItemStyle: {
+                            display: 'none',
+                        },
                     }}
                 />
             </Drawer>
