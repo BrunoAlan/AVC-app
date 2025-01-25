@@ -60,7 +60,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
         <ThemeContext.Provider
             value={{ theme, isDark: colorScheme === 'dark' }}
         >
-            <NavigationThemeProvider value={theme}>
+            <NavigationThemeProvider value={LIGHT_THEME}>
                 {children}
             </NavigationThemeProvider>
         </ThemeContext.Provider>

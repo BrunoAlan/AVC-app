@@ -1,7 +1,36 @@
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { Tabs } from 'expo-router/tabs';
-import { Text } from 'react-native';
+
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Colors } from '@/src/constants/Colors';
+
+const TABS: {
+    name: string;
+    title: string;
+    icon: React.ComponentProps<typeof Ionicons>['name'];
+}[] = [
+    {
+        name: 'home',
+        title: 'Home',
+        icon: 'home-outline',
+    },
+    {
+        name: 'search',
+        title: 'Search',
+        icon: 'search-outline',
+    },
+    {
+        name: 'bookings',
+        title: 'Bookings',
+        icon: 'calendar-outline',
+    },
+    {
+        name: 'my-card',
+        title: 'My card',
+        icon: 'card-outline',
+    },
+];
 
 export default function TabsLayout() {
     const navigation = useNavigation();
@@ -10,25 +39,35 @@ export default function TabsLayout() {
             initialRouteName='home'
             screenOptions={{
                 headerLeft: () => (
-                    <Text
+                    <Ionicons
+                        name='menu-outline'
+                        color={Colors.darkGray}
+                        size={32}
                         onPress={() => {
                             navigation.dispatch(DrawerActions.toggleDrawer);
                         }}
-                    />
+                    ></Ionicons>
                 ),
-                tabBarActiveTintColor: '#b4a258',
+                tabBarActiveTintColor: Colors.main,
             }}
         >
-            <Tabs.Screen
-                name='home'
-                options={{
-                    title: 'Home',
-                    tabBarActiveTintColor: '#b4a258',
-                }}
-            />
-            <Tabs.Screen name='search' options={{ title: 'Search' }} />
-            <Tabs.Screen name='bookings' options={{ title: 'Bookings' }} />
-            <Tabs.Screen name='my-card' options={{ title: 'My card' }} />
+            {TABS.map((tab) => (
+                <Tabs.Screen
+                    key={tab.name}
+                    name={tab.name}
+                    options={{
+                        title: tab.title,
+                        tabBarActiveTintColor: Colors.main,
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons
+                                name={tab.icon}
+                                color={color}
+                                size={size}
+                            />
+                        ),
+                    }}
+                />
+            ))}
         </Tabs>
     );
 }
