@@ -1,29 +1,32 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { Pressable } from 'react-native';
+import {
+    Pressable,
+    View,
+    Text,
+    type PressableStateCallbackType,
+} from 'react-native';
 import { cn } from '~/lib/utils';
 import { TextClassContext } from '~/components/ui/text';
 
 const buttonVariants = cva(
-    'group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
+    'flex items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     {
         variants: {
             variant: {
-                default: 'bg-primary web:hover:opacity-90 active:opacity-90',
-                destructive:
-                    'bg-destructive web:hover:opacity-90 active:opacity-90',
+                default: 'bg-primary text-white active:bg-primary-dark',
+                destructive: 'bg-red-500 text-white active:bg-red-600',
                 outline:
-                    'border border-input bg-background web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent',
-                secondary:
-                    'bg-secondary web:hover:opacity-80 active:opacity-80',
-                ghost: 'web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent',
-                link: 'web:underline-offset-4 web:hover:underline web:focus:underline',
+                    'border border-gray-300 bg-transparent text-black active:bg-gray-100',
+                secondary: 'bg-gray-200 text-black active:bg-gray-300',
+                ghost: 'bg-transparent text-black active:bg-gray-100',
+                link: 'underline text-primary active:text-primary-dark',
             },
             size: {
-                default: 'h-10 px-4 py-2 native:h-12 native:px-5 native:py-3',
-                sm: 'h-9 rounded-md px-3',
-                lg: 'h-11 rounded-md px-8 native:h-14',
-                icon: 'h-10 w-10',
+                default: 'h-12 px-4',
+                sm: 'h-10 px-3 text-sm',
+                lg: 'h-14 px-6 text-lg',
+                icon: 'h-12 w-12',
             },
         },
         defaultVariants: {
@@ -33,60 +36,89 @@ const buttonVariants = cva(
     }
 );
 
-const buttonTextVariants = cva(
-    'web:whitespace-nowrap text-sm native:text-base font-medium text-foreground web:transition-colors',
-    {
-        variants: {
-            variant: {
-                default: 'text-primary-foreground',
-                destructive: 'text-destructive-foreground',
-                outline: 'group-active:text-accent-foreground',
-                secondary:
-                    'text-secondary-foreground group-active:text-secondary-foreground',
-                ghost: 'group-active:text-accent-foreground',
-                link: 'text-primary group-active:underline',
-            },
-            size: {
-                default: '',
-                sm: '',
-                lg: 'native:text-lg',
-                icon: '',
-            },
+const buttonTextVariants = cva('text-center font-medium', {
+    variants: {
+        variant: {
+            default: 'text-white',
+            destructive: 'text-white',
+            outline: 'text-black',
+            secondary: 'text-black',
+            ghost: 'text-black',
+            link: 'text-primary',
         },
-        defaultVariants: {
-            variant: 'default',
-            size: 'default',
+        size: {
+            default: 'text-base',
+            sm: 'text-sm',
+            lg: 'text-lg',
+            icon: 'text-base',
         },
-    }
-);
+    },
+    defaultVariants: {
+        variant: 'default',
+        size: 'default',
+    },
+});
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Pressable> &
-    VariantProps<typeof buttonVariants>;
+    VariantProps<typeof buttonVariants> & {
+        icon?: React.ReactNode;
+        iconPosition?: 'left' | 'right';
+        children?:
+            | React.ReactNode
+            | ((state: PressableStateCallbackType) => React.ReactNode);
+    };
 
 const Button = React.forwardRef<
     React.ElementRef<typeof Pressable>,
     ButtonProps
->(({ className, variant, size, ...props }, ref) => {
-    return (
-        <TextClassContext.Provider
-            value={buttonTextVariants({
-                variant,
-                size,
-                className: 'web:pointer-events-none',
-            })}
-        >
-            <Pressable
-                className={cn(
-                    props.disabled && 'opacity-50 web:pointer-events-none',
-                    buttonVariants({ variant, size, className })
-                )}
-                ref={ref}
-                role='button'
-                {...props}
-            />
-        </TextClassContext.Provider>
-    );
-});
+>(
+    (
+        {
+            className,
+            variant,
+            size,
+            icon,
+            iconPosition = 'left',
+            children,
+            ...props
+        },
+        ref
+    ) => {
+        return (
+            <TextClassContext.Provider
+                value={buttonTextVariants({
+                    variant,
+                    size,
+                })}
+            >
+                <Pressable
+                    className={cn(
+                        'flex-row items-center gap-2', // Horizontal alignment
+                        props.disabled && 'opacity-50',
+                        buttonVariants({ variant, size, className })
+                    )}
+                    ref={ref}
+                    {...props}
+                >
+                    {icon && iconPosition === 'left' && (
+                        <View className='mr-2'>{icon}</View> // Margin for spacing
+                    )}
+                    <Text className={cn(buttonTextVariants({ variant, size }))}>
+                        {typeof children === 'function'
+                            ? children({
+                                  pressed: false,
+                                  hovered: false,
+                              })
+                            : children}
+                    </Text>
+                    {icon && iconPosition === 'right' && (
+                        <View className='ml-2'>{icon}</View>
+                    )}
+                </Pressable>
+            </TextClassContext.Provider>
+        );
+    }
+);
 Button.displayName = 'Button';
 
 export { Button, buttonTextVariants, buttonVariants };
