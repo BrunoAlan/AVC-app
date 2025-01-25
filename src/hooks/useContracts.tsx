@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getContract } from '../actions/contracts/get-contract';
+import { getContract } from '../actions/contracts/get-contracts';
 
 export const useContracts = () => {
     const {

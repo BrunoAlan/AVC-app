@@ -17,11 +17,15 @@ export default function Index() {
         }
         const { queryParams } = Linking.parse(url);
         (async () => {
+            await StorageAdapter.setItem(
+                'token',
+                '45feccbfe3a6383d63bfcbea4dba0317'
+            );
             const token =
                 (queryParams?.token as string) ||
                 (await StorageAdapter.getItem('token'));
             if (token || true) {
-                await StorageAdapter.setItem('token', 'token');
+                // await StorageAdapter.setItem('token', 'token');
                 router.replace({
                     pathname: '/(drawer)/(tabs)/home',
                 });
