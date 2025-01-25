@@ -1,12 +1,10 @@
 import { useLocalSearchParams } from 'expo-router';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useLanguage } from '../../providers/Language.provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from '@/src/actions/user/get-user';
-import { Text } from '@/components/ui/text';
-import { Button } from '@/components/ui/button';
-
+import { Text } from 'react-native';
 const LogedToken = () => {
     const { logedToken: token } = useLocalSearchParams();
     const { currentLanguage, changeLanguage } = useLanguage();
@@ -21,9 +19,7 @@ const LogedToken = () => {
     return (
         <View className='flex flex-1 px-2' style={{ marginTop: top }}>
             <Text className='native:text-lg'>{token?.toString()}</Text>
-            <Button
-                variant={'default'}
-                size={'lg'}
+            <Pressable
                 style={{ marginTop: 20 }}
                 onPress={() => {
                     const newLanguage = currentLanguage === 'en' ? 'ar' : 'en'; // Alternar entre inglés y árabe
@@ -31,7 +27,7 @@ const LogedToken = () => {
                 }}
             >
                 <Text>Change language</Text>
-            </Button>
+            </Pressable>
         </View>
     );
 };

@@ -12,17 +12,14 @@ import {
     DefaultTheme,
     DarkTheme,
 } from '@react-navigation/native';
-import { NAV_THEME } from '~/lib/constants';
-import { useColorScheme } from '~/lib/useColorScheme';
+import { useColorScheme } from 'react-native';
 
 const LIGHT_THEME: Theme = {
     ...DefaultTheme,
-    colors: NAV_THEME.light,
 };
 
 const DARK_THEME: Theme = {
     ...DarkTheme,
-    colors: NAV_THEME.dark,
 };
 
 // Context to share theme-related state
@@ -37,11 +34,11 @@ const ThemeContext = createContext<{
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
-    const { isDarkColorScheme } = useColorScheme();
+    const colorScheme = useColorScheme();
 
     const theme = useMemo(
-        () => (isDarkColorScheme ? DARK_THEME : LIGHT_THEME),
-        [isDarkColorScheme]
+        () => (colorScheme === 'dark' ? DARK_THEME : LIGHT_THEME),
+        [colorScheme]
     );
 
     const hasMounted = useRef(false);
@@ -60,7 +57,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     return (
-        <ThemeContext.Provider value={{ theme, isDark: isDarkColorScheme }}>
+        <ThemeContext.Provider
+            value={{ theme, isDark: colorScheme === 'dark' }}
+        >
             <NavigationThemeProvider value={theme}>
                 {children}
             </NavigationThemeProvider>

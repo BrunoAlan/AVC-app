@@ -1,9 +1,7 @@
-import { Text } from '@/components/ui/text';
 import { DrawerActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { Tabs } from 'expo-router/tabs';
-import { Menu } from '@/lib/icons/menu';
-import { Search } from '@/lib/icons/search';
+import { Text } from 'react-native';
 
 export default function TabsLayout() {
     const navigation = useNavigation();
@@ -12,8 +10,7 @@ export default function TabsLayout() {
             initialRouteName='home'
             screenOptions={{
                 headerLeft: () => (
-                    <Menu
-                        className='ml-4 color-black'
+                    <Text
                         onPress={() => {
                             navigation.dispatch(DrawerActions.toggleDrawer);
                         }}
@@ -26,9 +23,6 @@ export default function TabsLayout() {
                 name='home'
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ focused }) => (
-                        <Search color={focused ? '#b4a258' : 'gray'} />
-                    ),
                     tabBarActiveTintColor: '#b4a258',
                 }}
             />
