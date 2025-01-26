@@ -1,7 +1,7 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import CustomDrawer from '@/src/components/drawer/DrawerContent';
-import { Colors } from '@/src/constants/Colors';
+import { Colors } from '@src/constants/theme/Colors';
 export default function Layout() {
     return (
         <GestureHandlerRootView>
@@ -23,6 +23,13 @@ export default function Layout() {
                         drawerItemStyle: {
                             display: 'none',
                         },
+                    }}
+                />
+                <Drawer.Screen
+                    name='profile'
+                    options={{
+                        drawerLabel: 'Profile',
+                        headerShadowVisible: true,
                     }}
                 />
             </Drawer>

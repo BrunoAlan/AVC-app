@@ -15,6 +15,14 @@ export default function RootLayout() {
                     <Stack screenOptions={{ headerShown: false }}>
                         <Stack.Screen name='index' />
                         <Stack.Screen name='unauthorized' />
+                        <Stack.Screen
+                            name='(modals)/contract'
+                            options={{
+                                title: 'Contract',
+                                presentation: 'fullScreenModal',
+                                headerShown: true,
+                            }}
+                        />
                     </Stack>
                 </LanguageProvider>
             </QueryClientProvider>

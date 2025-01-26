@@ -3,7 +3,7 @@ import { useNavigation } from 'expo-router';
 import { Tabs } from 'expo-router/tabs';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Colors } from '@/src/constants/Colors';
+import { Colors } from '@src/constants/theme/Colors';
 
 const TABS: {
     name: string;

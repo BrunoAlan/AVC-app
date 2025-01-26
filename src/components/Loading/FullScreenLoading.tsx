@@ -1,4 +1,4 @@
-import { Colors } from '@/src/constants/Colors';
+import { Colors } from '@src/constants/theme/Colors';
 import { View, ActivityIndicator } from 'react-native';
 const FullScreenLoading = () => {
     return (

@@ -1,18 +1,18 @@
-import FullScreenLoadings from '@/src/components/Loading/FullScreenLoading';
-import { useContracts } from '@/src/hooks/useContracts';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 const Home = () => {
-    const { contracts, isLoading } = useContracts();
-
-    if (isLoading) {
-        return <FullScreenLoadings />;
-    }
     return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>{JSON.stringify(contracts)}</Text>
+        <View style={styles.container}>
+            <Text>home</Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
+
 export default Home;
