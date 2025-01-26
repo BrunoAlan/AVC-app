@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { ThemeProvider } from '../providers/Theme.provider';
+import { ThemeProvider, useTheme } from '../providers/Theme.provider';
 import LanguageProvider from '../providers/Language.provider';
 import QueryClientProvider from '../providers/QueryClient.provider';
 
@@ -19,8 +19,7 @@ export default function RootLayout() {
                             name='(modals)/contract'
                             options={{
                                 title: 'Contract',
-                                presentation: 'fullScreenModal',
-                                headerShown: true,
+                                presentation: 'transparentModal',
                             }}
                         />
                     </Stack>

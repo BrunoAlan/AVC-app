@@ -1,7 +1,7 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import CustomDrawer from '@/src/components/drawer/DrawerContent';
-import { Colors } from '@src/constants/theme/Colors';
+import { Colors } from '@src/constants/theme';
 export default function Layout() {
     return (
         <GestureHandlerRootView>
