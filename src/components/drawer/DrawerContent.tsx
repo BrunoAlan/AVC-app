@@ -5,9 +5,10 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 import { router } from 'expo-router';
-import { View, Text, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
+import { ThemedText } from '@components';
 
-const CustomDrawer = (props: DrawerContentComponentProps) => {
+export const CustomDrawer = (props: DrawerContentComponentProps) => {
     return (
         <DrawerContentScrollView {...props} scrollEnabled={false}>
             <DrawerItemList {...props} />
@@ -19,11 +20,9 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
                         router.replace('/');
                     }}
                 >
-                    <Text>Logout</Text>
+                    <ThemedText>Logout</ThemedText>
                 </Pressable>
             </View>
         </DrawerContentScrollView>
     );
 };
-
-export default CustomDrawer;
