@@ -1,6 +1,7 @@
 import Ionicons from '@node_modules/@expo/vector-icons/Ionicons';
+import ThemedText from '@src/components/ui/ThemedText';
 import { Stack, useRouter } from 'expo-router';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 const profile = () => {
     const router = useRouter();
     return (
@@ -16,7 +17,7 @@ const profile = () => {
                     ),
                 }}
             />
-            <Text>profile</Text>
+            <ThemedText>profile</ThemedText>
         </View>
     );
 };
