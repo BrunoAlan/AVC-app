@@ -1,7 +1,7 @@
 import { StyleProp, Text, TextStyle } from 'react-native';
 
 interface Props {
-    style: StyleProp<TextStyle>;
+    style?: StyleProp<TextStyle>;
     children: string;
 }
 const ThemedText = ({ style, children }: Props) => {
