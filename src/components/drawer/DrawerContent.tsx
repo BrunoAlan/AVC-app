@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/drawer';
 import { router } from 'expo-router';
 import { View, Pressable } from 'react-native';
-import { ThemedText } from '@components';
+import { ThemedText } from '../ui/ThemedText';
 
 export const CustomDrawer = (props: DrawerContentComponentProps) => {
     return (
