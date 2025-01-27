@@ -1,8 +1,9 @@
-import { View, Text } from 'react-native';
+import { ThemedText } from '@src/components';
+import { View } from 'react-native';
 const Bookings = () => {
     return (
         <View>
-            <Text>Bookings screen</Text>
+            <ThemedText>Bookings screen</ThemedText>
         </View>
     );
 };
