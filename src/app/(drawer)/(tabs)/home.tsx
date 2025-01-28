@@ -1,8 +1,18 @@
-import { useChannels } from '@src/hooks/useChannels';
+import { useContracts } from '@src/hooks/useContracts';
+import { useContractStore } from '@src/stores/contractStores';
 import { Link } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
+import { useEffect } from 'react';
 const Home = () => {
-    const { channels } = useChannels();
+    const { setSelectedContract } = useContractStore();
+    const { contracts } = useContracts();
+
+    useEffect(() => {
+        if (contracts && contracts?.length > 0) {
+            setSelectedContract(contracts[0].id);
+        }
+    }, [contracts]);
+
     return (
         <View style={styles.container}>
             <Text>home</Text>
