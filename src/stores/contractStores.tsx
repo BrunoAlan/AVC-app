@@ -14,5 +14,5 @@ const storeAPI: StateCreator<ContractStore, [['zustand/devtools', never]]> = (
 });
 
 export const useContractStore = create<ContractStore>()(
-    devtools(storeAPI, { name: 'contractStore' })
+    devtools(storeAPI, { name: 'contract' })
 );
