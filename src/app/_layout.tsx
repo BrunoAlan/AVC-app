@@ -20,6 +20,7 @@ export default function RootLayout() {
                             options={{
                                 title: 'Contract',
                                 presentation: 'transparentModal',
+                                animation: 'fade',
                             }}
                         />
                     </Stack>

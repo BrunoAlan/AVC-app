@@ -19,7 +19,7 @@ export default function Index() {
         (async () => {
             await StorageAdapter.setItem(
                 'token',
-                'bc552754ad9485df2b7bca2aec8e1471'
+                'be2a745453745dd3398e5177d22e9ed1'
             );
             const token =
                 (queryParams?.token as string) ||
