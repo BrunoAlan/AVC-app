@@ -3,6 +3,7 @@ import { useContractStore } from '@src/stores/contractStores';
 import { Link } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
 import { useEffect } from 'react';
+import Button from '@src/components/ui/Button';
 const Home = () => {
     const { setSelectedContract } = useContractStore();
     const { contracts } = useContracts();
@@ -16,8 +17,8 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <Text>home</Text>
-            <Link href='/(modals)/contract'>
-                <Text>contract</Text>
+            <Link asChild href='/(modals)/contract'>
+                <Button title='Go to contract' onPress={() => {}} />
             </Link>
         </View>
     );
