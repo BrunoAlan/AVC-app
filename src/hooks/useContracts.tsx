@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getContract } from '../actions/contracts/get-contracts';
+import { getContracts } from '../actions/contracts/get-contracts';
 
 export const useContracts = () => {
     const {
@@ -10,7 +10,7 @@ export const useContracts = () => {
         isFetching,
     } = useQuery({
         queryKey: ['contract'],
-        queryFn: getContract,
+        queryFn: getContracts,
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 60,
     });
