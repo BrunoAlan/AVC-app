@@ -4,7 +4,7 @@ import {
     type ContractResponse,
 } from '@/src/infrastructure/interfaces/contract/contract.response';
 
-export const getContract = async (): Promise<Contract[]> => {
+export const getContracts = async (): Promise<Contract[]> => {
     try {
         const { data } = await bookingFlowApi.get<ContractResponse>(
             '/users/contracts',
@@ -17,6 +17,6 @@ export const getContract = async (): Promise<Contract[]> => {
         return data.contracts;
     } catch (error) {
         console.error(error);
-        return [];
+        throw new Error('Error getting contracts');
     }
 };
