@@ -1,5 +1,5 @@
 import { Stack, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WebView from 'react-native-webview';
 import * as Linking from 'expo-linking';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,21 +11,27 @@ export default function Index() {
     const router = useRouter();
     const url = Linking.useURL();
 
-    useEffect(() => {
-        if (!url) {
+    async function handleIncomingUrl(linkUrl: string) {
+        const { queryParams } = Linking.parse(linkUrl);
+        const incomingToken = queryParams?.token as string;
+
+        const savedToken = await StorageAdapter.getItem('token');
+
+        console.log({ savedToken, incomingToken });
+        if (savedToken) {
+            router.replace({ pathname: '/(drawer)/(tabs)/home' });
             return;
         }
-        const { queryParams } = Linking.parse(url);
-        (async () => {
-            const token = queryParams?.token as string;
-            if (token) {
-                await StorageAdapter.setItem('token', token);
-                router.replace({
-                    pathname: '/(drawer)/(tabs)/home',
-                });
-            }
-        })();
-        return () => {};
+
+        if (incomingToken) {
+            await StorageAdapter.setItem('token', incomingToken);
+            router.replace({ pathname: '/(drawer)/(tabs)/home' });
+        }
+    }
+
+    useEffect(() => {
+        if (!url) return;
+        handleIncomingUrl(url);
     }, [url]);
 
     return (
@@ -38,8 +44,8 @@ export default function Index() {
                 source={{
                     uri: 'https://login-dev.kognitiv.com/login?method=POST&service=https://echo-hbe-api-dev.kognitiv.com/login/?url=exp://192.168.0.206:8081',
                 }}
-                allowsBackForwardNavigationGestures={true}
-            ></WebView>
+                allowsBackForwardNavigationGestures
+            />
         </View>
     );
 }
