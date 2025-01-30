@@ -17,7 +17,6 @@ export default function Index() {
 
         const savedToken = await StorageAdapter.getItem('token');
 
-        console.log({ savedToken, incomingToken });
         if (savedToken) {
             router.replace({ pathname: '/(drawer)/(tabs)/home' });
             return;
