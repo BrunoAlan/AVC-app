@@ -17,15 +17,9 @@ export default function Index() {
         }
         const { queryParams } = Linking.parse(url);
         (async () => {
-            await StorageAdapter.setItem(
-                'token',
-                'be2a745453745dd3398e5177d22e9ed1'
-            );
-            const token =
-                (queryParams?.token as string) ||
-                (await StorageAdapter.getItem('token'));
-            if (token || true) {
-                // await StorageAdapter.setItem('token', 'token');
+            const token = queryParams?.token as string;
+            if (token) {
+                await StorageAdapter.setItem('token', token);
                 router.replace({
                     pathname: '/(drawer)/(tabs)/home',
                 });
