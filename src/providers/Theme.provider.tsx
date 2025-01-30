@@ -13,19 +13,13 @@ import {
     DarkTheme,
 } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
-import { Colors } from '@src/constants/theme';
 
 const LIGHT_THEME: Theme = {
     ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        ...Colors.light,
-    },
 };
 
 const DARK_THEME: Theme = {
     ...DarkTheme,
-    ...Colors.dark,
 };
 
 // Context to share theme-related state

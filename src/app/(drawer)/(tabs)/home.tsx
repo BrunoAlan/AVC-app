@@ -3,9 +3,9 @@ import { useContractStore } from '@src/stores/contractStores';
 import { Link } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
 import { useEffect } from 'react';
+import Button from '@src/components/ui/Button';
 import { useAccount } from '@src/hooks/useAccount';
 import { FullScreenLoading } from '@src/components';
-import ThemedButton from '@src/components/ui/ThemedButton';
 const Home = () => {
     const { setSelectedContract } = useContractStore();
     const { isFetching: contractsFetching, contracts } = useContracts();
@@ -23,17 +23,9 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <Link href={'/contracts'} asChild>
-                <Text>home</Text>
-            </Link>
-            <Link href={'/contracts'} asChild>
-                <ThemedButton
-                    onPress={() => {
-                        console.log('pressed');
-                    }}
-                >
-                    adsa
-                </ThemedButton>
+            <Text>home</Text>
+            <Link asChild href='/(modals)/contract'>
+                <Button title='Go to contract' onPress={() => {}} />
             </Link>
         </View>
     );
