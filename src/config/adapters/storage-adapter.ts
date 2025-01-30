@@ -5,7 +5,6 @@ export class StorageAdapter {
         try {
             const value = await AsyncStorage.getItem(key);
             return value;
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             return null;
         }
