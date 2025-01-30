@@ -1,10 +1,18 @@
 import Ionicons from '@node_modules/@expo/vector-icons/Ionicons';
 import { Stack, useRouter } from 'expo-router';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { ThemedText } from '@components';
+import { FullScreenLoading, ThemedText } from '@components';
 import Card from '@src/components/ui/Card';
+import { useAccount } from '@src/hooks/useAccount';
+
 const profile = () => {
     const router = useRouter();
+    const { account, isFetching } = useAccount();
+
+    if (isFetching) {
+        return <FullScreenLoading />;
+    }
+
     return (
         <View style={style.container}>
             <Stack.Screen
@@ -18,12 +26,23 @@ const profile = () => {
                     ),
                 }}
             />
-            <ThemedText>profile</ThemedText>
-            <Card title='Profile' description='This is the profile page'>
-                <ThemedText>
-                    adasd asd asd asd asd asd asd asd asd asd asd asd asd asd
-                    asd
-                </ThemedText>
+            <Card title='Profile'>
+                {account && (
+                    <View>
+                        <ThemedText>{account.primary.firstName}</ThemedText>
+                        <ThemedText>{account.primary.lastName}</ThemedText>
+                        <ThemedText>{account.primary.email}</ThemedText>
+                    </View>
+                )}
+            </Card>
+            <Card title='Profile'>
+                {account && (
+                    <View>
+                        <ThemedText>{account.secondary.firstName}</ThemedText>
+                        <ThemedText>{account.secondary.lastName}</ThemedText>
+                        <ThemedText>{account.secondary.email}</ThemedText>
+                    </View>
+                )}
             </Card>
         </View>
     );

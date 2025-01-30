@@ -1,6 +1,9 @@
 import { FullScreenLoading } from '@src/components';
 import { useProperties } from '@src/hooks/useProperties';
-import { ScrollView, Text } from 'react-native';
+import { Text, View } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
+import Card from '@src/components/ui/Card';
+
 const Search = () => {
     const { properties, isFetching } = useProperties('AVC_DEMO');
 
@@ -9,9 +12,17 @@ const Search = () => {
     }
 
     return (
-        <ScrollView>
-            <Text>{JSON.stringify(properties)}</Text>
-        </ScrollView>
+        <View style={{ flex: 1 }}>
+            <FlashList
+                style={{ flex: 1 }}
+                data={properties?.properties}
+                renderItem={({ item }) => (
+                    <Card title={item.name}>
+                        <Text>{item.description}</Text>
+                    </Card>
+                )}
+            />
+        </View>
     );
 };
 export default Search;

@@ -1,6 +1,9 @@
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
+import { type PropertiesResponse } from '@src/infrastructure/interfaces/properties/Properties.response';
 
-export const getProperties = async (channelId: string): Promise<any> => {
+export const getProperties = async (
+    channelId: string
+): Promise<PropertiesResponse> => {
     try {
         const { data } = await bookingFlowApi.post(
             `/v2/ee/channels/${channelId}/offers`,
