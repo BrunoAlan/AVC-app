@@ -9,7 +9,8 @@
     "scheme": "avc",
     "userInterfaceStyle": "automatic",
     "extra": {
-      "supportsRTL": true
+      "supportsRTL": true,
+      "forcesRTL": false
     },
     "splash": {
       "image": "./assets/images/splash.png",
