@@ -12,6 +12,9 @@ export default function Layout() {
                         marginHorizontal: 15,
                         borderRadius: 0,
                     },
+                    drawerLabelStyle: {
+                        textAlign: 'left',
+                    },
                     drawerActiveTintColor: Colors.main,
                 }}
                 drawerContent={CustomDrawer}
