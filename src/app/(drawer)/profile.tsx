@@ -4,6 +4,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { FullScreenLoading, ThemedText } from '@components';
 import Card from '@src/components/ui/Card';
 import { useAccount } from '@src/hooks/useAccount';
+import i18next from '@node_modules/i18next';
 
 const profile = () => {
     const router = useRouter();
@@ -26,7 +27,7 @@ const profile = () => {
                     ),
                 }}
             />
-            <Card title='Profile'>
+            <Card title={i18next.t('bf.contactUs')}>
                 {account && (
                     <View>
                         <ThemedText>{account.primary.firstName}</ThemedText>

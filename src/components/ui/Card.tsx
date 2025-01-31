@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     title: {
+        textAlign: 'left',
         fontSize: GlobalTheme.typography.fontSizeLG,
         fontWeight: 'bold',
         marginBottom: 6,

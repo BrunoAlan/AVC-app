@@ -10,9 +10,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "i18n": "node scripts/i18n.js",
-    "i18n2": "node scripts/i18n2.js",
-    "i18n3": "node scripts/i18n3.mjs"
+    "i18n": "node scripts/i18n.mjs"
   },
   "jest": {
     "preset": "jest-expo"
@@ -25,8 +23,6 @@
     "@tanstack/react-query": "5.64.1",
     "axios": "1.7.9",
     "class-variance-authority": "0.7.1",
-    "clsx": "2.1.1",
-    "cwait": "1.1.2",
     "expo": "52.0.27",
     "expo-blur": "~14.0.3",
     "expo-constants": "~17.0.4",

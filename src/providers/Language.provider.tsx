@@ -1,22 +1,22 @@
 import { getLocales } from 'expo-localization';
 import i18next from 'i18next';
 import en from '../../static/langs/en.json';
-import es from '../../static/langs/es.json';
 import ar from '../../static/langs/ar.json';
+import th from '../../static/langs/th.json';
 import { View } from 'react-native';
 import { useEffect, useState, createContext, useContext } from 'react';
 
 const translations = {
     en: { translation: { ...en } },
-    es: { translation: { ...es } },
     ar: { translation: { ...ar } },
+    th: { translation: { ...th } },
 };
 
 export const i18nextInstance = i18next.init({
     compatibilityJSON: 'v3',
     ns: undefined,
     fallbackLng: 'en',
-    lng: 'en',
+    lng: 'ar',
     resources: translations,
 });
 
