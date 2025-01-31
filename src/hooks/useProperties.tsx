@@ -1,7 +1,13 @@
 import { getProperties } from '@src/actions/properties/get-properties';
 import { useQuery } from '@tanstack/react-query';
 
-export const useProperties = (channelId: string) => {
+interface Options {
+    channelId: string;
+    checkIn: string;
+    checkOut: string;
+}
+
+export const useProperties = ({ channelId, checkIn, checkOut }: Options) => {
     const {
         isLoading,
         isError,
@@ -9,8 +15,15 @@ export const useProperties = (channelId: string) => {
         data: properties,
         isFetching,
     } = useQuery({
-        queryKey: ['property', channelId],
-        queryFn: () => getProperties(channelId),
+        enabled: !!channelId && !!checkIn && !!checkOut,
+        queryKey: ['property', { channelId, checkIn, checkOut }],
+        queryFn: () =>
+            getProperties({
+                channelId,
+                checkIn,
+                checkOut,
+            }),
+
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 60,
     });
