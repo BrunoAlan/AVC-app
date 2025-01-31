@@ -111,6 +111,8 @@ async function main() {
             new RegExp("intl.formatMessage[^]*?id: '([^']*?)'[^]*?}", 'ig'),
             new RegExp('<FormattedHTMLMessage[^]*?id="([^"]*?)"', 'ig'),
             new RegExp('i18nLabel\\[(.*?)\\]', 'ig'),
+            new RegExp("\\bt\\(\\s*['\"]([^'\"]+)['\"]\\s*\\)", "ig"),
+
         ];
 
         detectKeysExpressions.forEach((regExp) => {

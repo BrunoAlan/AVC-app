@@ -23,7 +23,7 @@ const LogedToken = () => {
     return (
         <View className='flex flex-1 px-2' style={{ marginTop: top }}>
             <Text className='native:text-lg'>{token?.toString()}</Text>
-            <Text>{i18next.t('bf.contactUs')}</Text>
+            <Text>{i18next.t('bf.checkout')}</Text>
             <Pressable
                 style={{ marginTop: 20 }}
                 onPress={() => {
