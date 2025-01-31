@@ -36,7 +36,7 @@ const profile = () => {
                     </View>
                 )}
             </Card>
-            <Card title={t('bf.checkout')}>
+            <Card title={i18next.t('bf.checkout')}>
                 {account && (
                     <View>
                         <ThemedText>{account.secondary.firstName}</ThemedText>
