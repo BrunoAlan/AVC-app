@@ -1,7 +1,7 @@
 import { ErrorBoundaryProps, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider, useTheme } from '../providers/Theme.provider';
-import LanguageProvider from '../providers/Language/Language.provider';
+import LanguageProvider from '../providers/Language.provider';
 import QueryClientProvider from '../providers/QueryClient.provider';
 import { View, Text } from 'react-native';
 
