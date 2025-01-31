@@ -3,9 +3,16 @@ import { useProperties } from '@src/hooks/useProperties';
 import { View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import Card from '@src/components/ui/Card';
+import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 
 const Search = () => {
-    const { properties, isFetching } = useProperties('AVC_DEMO');
+    const { checkIn, checkOut, setCheckIn, setCheckOut } =
+        useSearchParamsStore();
+    const { properties, isFetching } = useProperties({
+        channelId: 'AVC_DEMO',
+        checkIn,
+        checkOut,
+    });
 
     if (isFetching) {
         return <FullScreenLoading />;
