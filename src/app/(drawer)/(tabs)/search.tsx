@@ -14,8 +14,8 @@ const Search = () => {
     return (
         <View style={{ flex: 1 }}>
             <FlashList
-                style={{ flex: 1 }}
                 data={properties?.properties}
+                estimatedItemSize={272}
                 renderItem={({ item }) => (
                     <Card title={item.name}>
                         <ThemedText>{item.description || ''}</ThemedText>
