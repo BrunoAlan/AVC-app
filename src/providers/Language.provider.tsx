@@ -51,7 +51,6 @@ export default function LanguageProvider({ children }: Props) {
             <View
                 style={{
                     flex: 1,
-                    direction: i18next.dir() === 'rtl' ? 'rtl' : 'ltr',
                 }}
             >
                 {children}
