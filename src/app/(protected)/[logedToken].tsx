@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native';
 import {
     i18nextInstance,
     useLanguage,
-} from '../../providers/Language.provider';
+} from '../../providers/Language/Language.provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from '@/src/actions/user/get-user';

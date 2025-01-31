@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-cond-assign */
 import fs from 'fs';
 import path from 'path';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import { globby } from 'globby';
 import mkdirp from 'mkdirp';
 import pLimit from 'p-limit';
@@ -164,6 +164,7 @@ async function findKeysUsedInProject() {
   const keysUsedInProject = [];
   const detectKeysExpressions = [
     /i18next\.t\(\s*['"]([^'"]*)['"]\s*\)/gi,
+    /t\(\s*['"]([^'"]*)['"]\s*\)/gi, 
   ];
 
   filesToSearchForKeys.forEach((filePath) => {
@@ -196,6 +197,7 @@ async function main() {
   // 2) Download all strings from WebTranslateIt.
   console.log('Downloading all existing strings...');
   const allStrings = await getAllStrings();
+  console.log({allStrings});
   console.log(`\nDownloaded ${allStrings.length} string entries.\n`);
 
   // 3) Process translations and build objects per language.
