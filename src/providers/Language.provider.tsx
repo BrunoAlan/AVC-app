@@ -2,14 +2,18 @@ import { getLocales } from 'expo-localization';
 import i18next from 'i18next';
 import en from '../../static/langs/en.json';
 import ar from '../../static/langs/ar.json';
+import ja from '../../static/langs/ja.json';
 import th from '../../static/langs/th.json';
+import zh from '../../static/langs/zh.json';
 import { View } from 'react-native';
 import { useEffect, useState, createContext, useContext } from 'react';
 
 const translations = {
-    en: { translation: { ...en } },
     ar: { translation: { ...ar } },
+    en: { translation: { ...en } },
+    ja: { translation: { ...ja } },
     th: { translation: { ...th } },
+    zh: { translation: { ...zh } },
 };
 
 export const i18nextInstance = i18next.init({
