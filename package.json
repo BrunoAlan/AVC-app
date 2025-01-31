@@ -10,9 +10,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "i18nm": "node scripts/i18n.mjs",
-    "i18n2": "node scripts/i18n2.js",
-    "i18n": "node scripts/i18na.js"
+    "i18n": "node ./scripts/i18n.js"
   },
   "jest": {
     "preset": "jest-expo"
@@ -41,11 +39,11 @@
     "expo-updates": "~0.26.13",
     "expo-web-browser": "~14.0.2",
     "fs": "0.0.1-security",
-    "globby": "^9.2.0",
+    "globby": "9.2.0",
     "i18n-js": "4.4.3",
     "i18next": "23.15.1",
     "lucide-react-native": "^0.474.0",
-    "p-limit": "^6.2.0",
+    "p-limit": "6.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.6",
