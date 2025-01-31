@@ -101,13 +101,8 @@ async function main() {
     console.log(filesToSearchForKeys)
     filesToSearchForKeys.forEach((filePath) => {
         const fileContent = fs.readFileSync(filePath);
-        // TODO: RegExp to get getIntl('bf.i18n')
         const detectKeysExpressions = [
-            new RegExp('<FormattedMessage[^]*?id="([^"]*?)"', 'ig'),
-            new RegExp("intl.formatMessage[^]*?id: '([^']*?)'[^]*?}", 'ig'),
-            new RegExp('<FormattedHTMLMessage[^]*?id="([^"]*?)"', 'ig'),
-            new RegExp('i18nLabel\\[(.*?)\\]', 'ig'),
-            new RegExp("\\bt\\(\\s*['\"]([^'\"]+)['\"]\\s*\\)", "ig"), // <-- NUEVO
+            new RegExp("\\bt\\(\\s*['\"]([^'\"]+)['\"]\\s*\\)", "ig"),
 
         ];
 

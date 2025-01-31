@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "i18n": "node ./scripts/i18n.js"
+    "i18n": "node ./scripts/i18n.js",
+    "i18n-new": "node ./scripts/i18n-new.js"
   },
   "jest": {
     "preset": "jest-expo"
