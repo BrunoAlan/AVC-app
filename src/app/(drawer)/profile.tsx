@@ -4,9 +4,10 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { FullScreenLoading, ThemedText } from '@components';
 import Card from '@src/components/ui/Card';
 import { useAccount } from '@src/hooks/useAccount';
-import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const profile = () => {
+    const { t } = useTranslation();
     const router = useRouter();
     const { account, isFetching } = useAccount();
 
@@ -27,7 +28,7 @@ const profile = () => {
                     ),
                 }}
             />
-            <Card title={i18next.t('bf.contactUs')}>
+            <Card title={t('bf.contactUs')}>
                 {account && (
                     <View>
                         <ThemedText>{account.primary.firstName}</ThemedText>
@@ -36,7 +37,7 @@ const profile = () => {
                     </View>
                 )}
             </Card>
-            <Card title={i18next.t('bf.checkout')}>
+            <Card title={t('bf.checkout')}>
                 {account && (
                     <View>
                         <ThemedText>{account.secondary.firstName}</ThemedText>
