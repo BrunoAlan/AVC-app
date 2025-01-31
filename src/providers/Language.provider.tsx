@@ -35,7 +35,7 @@ export const LanguageProvider: React.FC<Props> = ({ children }) => {
             console.log(`Language changed to: ${lng}`);
         });
 
-        if (lng === 'ar' || lng === 'he') {
+        if (lng === 'ar') {
             I18nManager.allowRTL(true);
             I18nManager.forceRTL(true);
         } else {

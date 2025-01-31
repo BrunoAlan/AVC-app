@@ -1,6 +1,6 @@
-import { FullScreenLoading } from '@src/components';
+import { FullScreenLoading, ThemedText } from '@src/components';
 import { useProperties } from '@src/hooks/useProperties';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import Card from '@src/components/ui/Card';
 
@@ -18,7 +18,7 @@ const Search = () => {
                 data={properties?.properties}
                 renderItem={({ item }) => (
                     <Card title={item.name}>
-                        <Text>{item.description}</Text>
+                        <ThemedText>{item.description || ''}</ThemedText>
                     </Card>
                 )}
             />
