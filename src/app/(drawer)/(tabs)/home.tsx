@@ -3,11 +3,13 @@ import Button from '@src/components/ui/Button';
 import { useProperties } from '@src/hooks/useProperties';
 import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 import { View, Text, StyleSheet } from 'react-native';
+import { useChannels } from '../../../hooks/useChannels';
 
 const Home = () => {
     const { checkIn, checkOut, setCheckIn, setCheckOut } =
         useSearchParamsStore();
 
+    useChannels();
     const { properties } = useProperties({
         channelId: 'AVC_DEMO',
         checkIn,

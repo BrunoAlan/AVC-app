@@ -16,8 +16,8 @@ export interface ChannelSettings {
     activeBookingEngine: string;
     currencies: Currencies;
     defaultOccupancyConf: DefaultOccupancyConf;
-    checkIn: Date;
-    checkOut: Date;
+    checkIn: string;
+    checkOut: string;
     languages: Languages;
     currencyDisplay: string;
     customLabels: CustomLabels;
