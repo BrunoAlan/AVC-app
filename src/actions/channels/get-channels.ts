@@ -1,6 +1,6 @@
 import * as Network from 'expo-network';
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
-import { ChannelsResponse } from '@src/infrastructure/channels/channels.response';
+import { type ChannelsResponse } from '@src/infrastructure/interfaces/channels/channels.response';
 
 export const getChannels = async () => {
     const domain = process.env.EXPO_PUBLIC_DOMAIN_URL;
