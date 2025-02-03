@@ -15,6 +15,7 @@ bookingFlowApi.interceptors.request.use(async (config) => {
     const token = await StorageAdapter.getItem('token');
     if (token) {
         config.params = {
+            ...config.params,
             token,
             isMobile: true,
         };
