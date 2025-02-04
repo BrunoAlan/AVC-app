@@ -5,24 +5,24 @@ import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 import { View, Text, StyleSheet } from 'react-native';
 import { useChannels } from '../../../hooks/useChannels';
 import { useConfiguration } from '@src/hooks/useConfiguration';
+import { useRegions } from '@src/hooks/useRegions';
+import CountryCitySearch from '@src/components/DestinationModal/DestinationModal';
 
 const Home = () => {
     const { checkIn, checkOut, setCheckIn, setCheckOut } =
         useSearchParamsStore();
 
-    const { configuration } = useConfiguration();
-
-    useChannels();
-    const { properties } = useProperties({
+    const { regions } = useRegions({
         channelId: 'AVC_DEMO',
-        checkIn,
-        checkOut,
+        language: 'en',
     });
+
+    if (!regions) {
+        return <Text>Loading...</Text>;
+    }
 
     return (
         <View style={styles.container}>
-            <ThemedText>{checkIn}</ThemedText>
-            <ThemedText>{checkOut}</ThemedText>
             <Button
                 title='Set'
                 onPress={() => {
@@ -30,6 +30,8 @@ const Home = () => {
                     setCheckOut('2025-04-02');
                 }}
             ></Button>
+
+            <CountryCitySearch data={regions} />
         </View>
     );
 };
@@ -37,8 +39,6 @@ const Home = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });
 

@@ -1,5 +1,5 @@
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
-import { type RegionsResponse } from '@src/infrastructure/interfaces/regions/regions.response';
+import { type RegionsResponse } from '@src/infrastructure/interfaces/regions/regions.interface';
 
 interface Options {
     channelId: string;

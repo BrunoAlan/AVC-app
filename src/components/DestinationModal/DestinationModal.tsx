@@ -2,7 +2,7 @@ import {
     Country,
     Child,
     RegionsResponse,
-} from '@src/infrastructure/interfaces/regions/regions.response';
+} from '@src/infrastructure/interfaces/regions/regions.interface';
 import React, { FC, useState } from 'react';
 import {
     View,
