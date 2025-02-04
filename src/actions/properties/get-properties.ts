@@ -1,5 +1,5 @@
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
-import { type PropertiesResponse } from '@src/infrastructure/interfaces/properties/Properties.response';
+import { type PropertiesResponse } from '@src/infrastructure/interfaces/properties/properties.interface';
 
 interface Options {
     channelId: string;

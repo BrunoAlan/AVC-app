@@ -1,5 +1,5 @@
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
-import { AccountResponse } from '@src/infrastructure/interfaces/account/account.response';
+import { AccountResponse } from '@src/infrastructure/interfaces/account/account.interface';
 
 export const getAccount = async (): Promise<AccountResponse> => {
     try {

@@ -1,5 +1,5 @@
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
-import { type Configuration } from '@src/infrastructure/interfaces/configuration/configuration.response';
+import { type Configuration } from '@src/infrastructure/interfaces/configuration/configuration.interface';
 
 export const getConfiguration = async (): Promise<Configuration> => {
     try {

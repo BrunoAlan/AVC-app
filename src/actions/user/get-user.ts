@@ -1,5 +1,5 @@
 import bookingFlowApi from '@/src/config/api/BookingFlowApi';
-import { type UserResponse } from '@/src/infrastructure/interfaces/user/user.response';
+import { type UserResponse } from '@src/infrastructure/interfaces/user/user.interface';
 
 export const getUser = async (): Promise<UserResponse> => {
     try {
