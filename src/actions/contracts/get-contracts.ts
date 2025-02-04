@@ -7,12 +7,7 @@ import {
 export const getContracts = async (): Promise<Contract[]> => {
     try {
         const { data } = await bookingFlowApi.get<ContractResponse>(
-            '/users/contracts',
-            {
-                params: {
-                    isMobile: true,
-                },
-            }
+            '/users/contracts'
         );
         return data.contracts;
     } catch (error) {
