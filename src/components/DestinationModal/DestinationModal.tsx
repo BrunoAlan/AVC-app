@@ -4,6 +4,7 @@ import {
     RegionsResponse,
 } from '@src/infrastructure/interfaces/regions/regions.interface';
 import React, { FC, useState } from 'react';
+import { useSearchParamsStore } from '../../stores/searchParamsStore';
 import {
     View,
     Text,
@@ -21,6 +22,7 @@ interface CountryCitySearchProps {
 
 const CountryCitySearch: FC<CountryCitySearchProps> = ({ data }) => {
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const { setCountry, setCustomClassification } = useSearchParamsStore();
 
     /**
      * Filters the list of countries and cities based on the search term.
@@ -57,11 +59,30 @@ const CountryCitySearch: FC<CountryCitySearchProps> = ({ data }) => {
             .filter((country): country is Country => country !== null);
     };
 
+    const handleClick = (item: Country | Child): void => {
+        if ('children' in item) {
+            setCountry(item.value);
+            console.log('country', item.value);
+        } else {
+            setCustomClassification(item.value);
+            console.log('city', item.value);
+        }
+    };
+
     const renderCountry: ListRenderItem<Country> = ({ item: country }) => (
         <View style={styles.countryContainer}>
-            <Text style={styles.countryLabel}>{country.label}</Text>
+            <Text
+                onPress={() => handleClick(country)}
+                style={styles.countryLabel}
+            >
+                {country.label}
+            </Text>
             {country.children.map((city) => (
-                <Text key={city.value} style={styles.cityLabel}>
+                <Text
+                    onPress={() => handleClick(city)}
+                    key={city.value}
+                    style={styles.cityLabel}
+                >
                     {city.label}
                 </Text>
             ))}
