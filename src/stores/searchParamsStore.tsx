@@ -52,6 +52,7 @@ const storeAPI: StateCreator<
     setCountry: (country: string) =>
         set((state) => {
             state.country = country;
+            state.customClassification = null;
         }),
 
     setCustomClassification: (customClassification: string) =>
