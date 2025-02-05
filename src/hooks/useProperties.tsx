@@ -5,9 +5,17 @@ interface Options {
     channelId: string;
     checkIn: string;
     checkOut: string;
+    country: string | null;
+    customClassification: string | null;
 }
 
-export const useProperties = ({ channelId, checkIn, checkOut }: Options) => {
+export const useProperties = ({
+    channelId,
+    checkIn,
+    checkOut,
+    country,
+    customClassification,
+}: Options) => {
     const {
         isLoading,
         isError,
@@ -15,13 +23,22 @@ export const useProperties = ({ channelId, checkIn, checkOut }: Options) => {
         data: properties,
         isFetching,
     } = useQuery({
-        enabled: !!channelId && !!checkIn && !!checkOut,
-        queryKey: ['property', { channelId, checkIn, checkOut }],
+        enabled:
+            !!channelId &&
+            !!checkIn &&
+            !!checkOut &&
+            (!!country || !!customClassification),
+        queryKey: [
+            'property',
+            { channelId, checkIn, checkOut, country, customClassification },
+        ],
         queryFn: () =>
             getProperties({
                 channelId,
                 checkIn,
                 checkOut,
+                country,
+                customClassification,
             }),
 
         staleTime: 1000 * 60 * 5,
