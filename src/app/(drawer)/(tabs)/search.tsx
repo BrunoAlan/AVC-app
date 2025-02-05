@@ -6,12 +6,14 @@ import Card from '@src/components/ui/Card';
 import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 
 const Search = () => {
-    const { checkIn, checkOut, setCheckIn, setCheckOut } =
+    const { checkIn, checkOut, country, customClassification } =
         useSearchParamsStore();
     const { properties, isFetching } = useProperties({
         channelId: 'AVC_DEMO',
         checkIn,
         checkOut,
+        country,
+        customClassification,
     });
 
     if (isFetching) {
