@@ -1,9 +1,9 @@
 import bookingFlowApi from '@src/config/api/BookingFlowApi';
-import { type Configuration } from '@src/infrastructure/interfaces/configuration/configuration.interface';
+import { type ConfigurationResponse } from '@src/infrastructure/interfaces/configuration/configuration.interface';
 
-export const getConfiguration = async (): Promise<Configuration> => {
+export const getConfiguration = async (): Promise<ConfigurationResponse> => {
     try {
-        const { data } = await bookingFlowApi.get<Configuration>(
+        const { data } = await bookingFlowApi.get<ConfigurationResponse>(
             '/ee/configurations',
             {
                 params: {
