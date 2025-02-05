@@ -1,4 +1,4 @@
-export interface Configuration {
+export interface ConfigurationResponse {
     isActive: boolean;
     currency: string;
     parentChannel: string;
