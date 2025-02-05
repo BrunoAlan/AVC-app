@@ -5,12 +5,16 @@ interface Options {
     channelId: string;
     checkIn: string;
     checkOut: string;
+    country: string | null;
+    customClassification: string | null;
 }
 
 export const getProperties = async ({
     channelId,
     checkIn,
     checkOut,
+    country,
+    customClassification,
 }: Options): Promise<PropertiesResponse> => {
     try {
         const { data } = await bookingFlowApi.post(
@@ -41,12 +45,12 @@ export const getProperties = async ({
                     stars: null,
                     mealPlans: null,
                     propertyTypes: null,
-                    countries: ['TH'],
+                    countries: country ? [country] : [],
                     distance: null,
                     latitude: null,
                     longitude: null,
                     geo: {
-                        regionType: null,
+                        customClassification: customClassification,
                     },
                 },
                 priceDisplayMode: 'stay',
