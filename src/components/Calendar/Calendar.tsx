@@ -5,6 +5,12 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
+/**
+ * Adjusts a hexadecimal color by a given amount (can be positive or negative).
+ * @param color - The color in hexadecimal format (e.g., "#abc" or "#aabbcc").
+ * @param amount - The value to add or subtract from each RGB component.
+ * @returns A new color string in full hexadecimal format (e.g., "#aabbcc").
+ */
 function adjustColor(color: string, amount: number): string {
     // Remove the '#' prefix if present
     let hex = color.replace(/^#/, '');
@@ -45,19 +51,22 @@ const CustomCalendar = () => {
 
     const { setCheckIn, setCheckOut } = useSearchParamsStore();
 
+    /**
+     * Handles the day press event:
+     * - If there is no start date, assign the first one.
+     * - If a start date exists but no end date, define the end date.
+     *   * If the new date is earlier than the start date, swap them.
+     * - If both a start date and end date exist, selecting a new date resets the range.
+     */
     const onDayPress = (day: any) => {
-        // Si no hay fecha inicial, se asigna la primera
         if (!startDate) {
             setStartDate(day.dateString);
             setCheckIn(day.dateString);
             setEndDate(null);
             setCheckOut('');
-
             return;
         }
 
-        // Si ya hay startDate pero no endDate, se define endDate.
-        // Si la fecha seleccionada es anterior, intercambiamos las fechas.
         if (!endDate) {
             const selected = day.dateString;
             if (selected < startDate) {
@@ -72,8 +81,6 @@ const CustomCalendar = () => {
             return;
         }
 
-        // Si ya existe un rango completo (startDate y endDate),
-        // al seleccionar una nueva fecha se reinicia el rango.
         setStartDate(day.dateString);
         setCheckIn(day.dateString);
         setEndDate(null);
@@ -81,8 +88,8 @@ const CustomCalendar = () => {
     };
 
     /**
-     * Genera un array con todas las fechas entre start y end (incluyéndolas).
-     * Formato de salida: "YYYY-MM-DD"
+     * Generates an array of all dates between 'start' and 'end' (inclusive).
+     * Output format: "YYYY-MM-DD"
      */
     const getDatesRange = (start: string, end: string): string[] => {
         let range: string[] = [];
@@ -90,22 +97,22 @@ const CustomCalendar = () => {
 
         while (currentDate <= new Date(end)) {
             range.push(currentDate.toISOString().split('T')[0]);
-            // Avanzar un día
+            // Advance one day
             currentDate.setDate(currentDate.getDate() + 1);
         }
         return range;
     };
 
     /**
-     * Devuelve el objeto "markedDates" que requiere react-native-calendars
-     * para mostrar el rango con estilos.
+     * Returns the "markedDates" object required by react-native-calendars
+     * to display the date range with custom styles.
      */
     const getMarkedDates = () => {
-        // Si no hay fecha inicial, no marcamos nada.
+        // If there is no start date, do not mark anything
         if (!startDate) return {};
 
-        // Si tenemos solo fecha inicial, la marcamos como start y end a la vez
-        // para indicar que esa fecha está seleccionada pero no se ha definido un rango.
+        // If we only have a start date, mark it as both start and end
+        // to show it's selected but no range is defined
         if (!endDate) {
             return {
                 [startDate]: {
@@ -117,27 +124,27 @@ const CustomCalendar = () => {
             };
         }
 
-        // Si hay un rango, marcamos todas las fechas entre startDate y endDate.
+        // If there is a range, mark all dates between startDate and endDate
         const range = getDatesRange(startDate, endDate);
         const marked: Record<string, any> = {};
 
         range.forEach((date, index) => {
             if (index === 0) {
-                // Primer día del rango
+                // First day of the range
                 marked[date] = {
                     startingDay: true,
                     color: GlobalTheme.colors.main,
                     textColor: GlobalTheme.colors.white,
                 };
             } else if (index === range.length - 1) {
-                // Último día del rango
+                // Last day of the range
                 marked[date] = {
                     endingDay: true,
                     color: GlobalTheme.colors.main,
                     textColor: GlobalTheme.colors.white,
                 };
             } else {
-                // Día intermedio del rango
+                // Intermediate day of the range
                 marked[date] = {
                     color: adjustColor(GlobalTheme.colors.main, +20),
                     textColor: GlobalTheme.colors.white,
@@ -153,9 +160,12 @@ const CustomCalendar = () => {
             <Text>Checkin {startDate}</Text>
             <Text>Checkout {endDate}</Text>
             <Calendar
-                hideArrows={true}
+                theme={{
+                    arrowColor: GlobalTheme.colors.main,
+                }}
+                minDate={new Date().toISOString().split('T')[0]}
                 onDayPress={onDayPress}
-                markingType='period' // Tipo de marcado para rango
+                markingType='period' // Marking type for range
                 markedDates={getMarkedDates()}
             />
         </View>
