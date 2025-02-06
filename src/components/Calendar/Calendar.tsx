@@ -199,10 +199,9 @@ const CustomCalendar = () => {
                 theme={{
                     arrowColor: GlobalTheme.colors.main,
                 }}
-                // Use date-fns to generate today's date in "YYYY-MM-DD" format
                 minDate={format(new Date(), 'yyyy-MM-dd')}
                 onDayPress={onDayPress}
-                markingType='period' // Marking type for range
+                markingType='period'
                 markedDates={getMarkedDates()}
             />
         </View>
