@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { format, parseISO, isBefore, isAfter, addDays } from 'date-fns';
+import {
+    format,
+    parseISO,
+    isBefore,
+    isAfter,
+    addDays,
+    differenceInCalendarDays,
+} from 'date-fns';
 import { GlobalTheme } from '@src/constants/theme/GlobalTheme';
 import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 import { useCalendars } from '@node_modules/expo-localization/build/Localization';
@@ -46,6 +53,10 @@ function adjustColor(color: string, amount: number): string {
     return `#${rr}${gg}${bb}`;
 }
 
+// Define your minimum and maximum LOS
+const MIN_LOS = 3;
+const MAX_LOS = 5;
+
 const CustomCalendar = () => {
     const [startDate, setStartDate] = useState<string | null>(null);
     const [endDate, setEndDate] = useState<string | null>(null);
@@ -54,12 +65,12 @@ const CustomCalendar = () => {
 
     /**
      * Handles the day press event:
-     * - If there is no start date, assign the first one.
-     * - If a start date exists but no end date, define the end date.
-     *   * If the new date is earlier than the start date, swap them.
-     * - If both a start date and end date exist, selecting a new date resets the range.
+     * - If there is no start date, set the chosen date as startDate.
+     * - If a start date exists but no end date, define the end date with LOS checks.
+     * - If both startDate and endDate exist, selecting a new date resets the range.
      */
     const onDayPress = (day: any) => {
+        // First date selection
         if (!startDate) {
             setStartDate(day.dateString);
             setCheckIn(day.dateString);
@@ -68,23 +79,43 @@ const CustomCalendar = () => {
             return;
         }
 
+        // Second date selection (apply LOS constraints)
         if (!endDate) {
-            const selected = day.dateString;
+            let start = parseISO(startDate);
+            let end = parseISO(day.dateString);
 
-            // Use date-fns to compare the parsed dates
-            if (isBefore(parseISO(selected), parseISO(startDate))) {
-                setEndDate(startDate);
-                setCheckOut(startDate);
-                setStartDate(selected);
-                setCheckIn(selected);
-            } else {
-                setEndDate(selected);
-                setCheckOut(selected);
+            // If the newly selected date is before the start date, swap them
+            if (isBefore(end, start)) {
+                [start, end] = [end, start];
             }
+
+            // Calculate the difference in days (+ 1 for inclusive)
+            let diff = differenceInCalendarDays(end, start) + 1;
+
+            // Clamp diff between MIN_LOS and MAX_LOS
+            if (diff < MIN_LOS) {
+                diff = MIN_LOS;
+            } else if (diff > MAX_LOS) {
+                diff = MAX_LOS;
+            }
+
+            // Recompute the 'end' date after clamping
+            end = addDays(start, diff - 1);
+
+            // Format to "YYYY-MM-DD" strings
+            const newStartDate = format(start, 'yyyy-MM-dd');
+            const newEndDate = format(end, 'yyyy-MM-dd');
+
+            // Update state
+            setStartDate(newStartDate);
+            setCheckIn(newStartDate);
+            setEndDate(newEndDate);
+            setCheckOut(newEndDate);
+
             return;
         }
 
-        // If both startDate and endDate exist, selecting a new date resets the range
+        // If both startDate and endDate exist, reset
         setStartDate(day.dateString);
         setCheckIn(day.dateString);
         setEndDate(null);
@@ -99,10 +130,9 @@ const CustomCalendar = () => {
     const getDatesRange = (start: string, end: string): string[] => {
         const result: string[] = [];
         let currentDate = parseISO(start);
-        const endDate = parseISO(end);
+        const finalDate = parseISO(end);
 
-        // Continue while currentDate is not after endDate
-        while (!isAfter(currentDate, endDate)) {
+        while (!isAfter(currentDate, finalDate)) {
             result.push(format(currentDate, 'yyyy-MM-dd'));
             currentDate = addDays(currentDate, 1);
         }
@@ -118,8 +148,7 @@ const CustomCalendar = () => {
         // If there is no start date, do not mark anything
         if (!startDate) return {};
 
-        // If we only have a start date, mark it as both start and end
-        // to show it's selected but no range is defined
+        // If we only have a start date, mark it as both start and end (single day selected)
         if (!endDate) {
             return {
                 [startDate]: {
@@ -131,7 +160,7 @@ const CustomCalendar = () => {
             };
         }
 
-        // If there is a range, mark all dates between startDate and endDate
+        // If there is a start date and an end date, mark all dates in the range
         const range = getDatesRange(startDate, endDate);
         const marked: Record<string, any> = {};
 
