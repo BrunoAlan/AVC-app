@@ -1,9 +1,10 @@
-import { useCalendars } from '@node_modules/expo-localization/build/Localization';
-import { GlobalTheme } from '@src/constants/theme/GlobalTheme';
-import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
+import { format, parseISO, isBefore, isAfter, addDays } from 'date-fns';
+import { GlobalTheme } from '@src/constants/theme/GlobalTheme';
+import { useSearchParamsStore } from '@src/stores/searchParamsStore';
+import { useCalendars } from '@node_modules/expo-localization/build/Localization';
 
 /**
  * Adjusts a hexadecimal color by a given amount (can be positive or negative).
@@ -69,7 +70,9 @@ const CustomCalendar = () => {
 
         if (!endDate) {
             const selected = day.dateString;
-            if (selected < startDate) {
+
+            // Use date-fns to compare the parsed dates
+            if (isBefore(parseISO(selected), parseISO(startDate))) {
                 setEndDate(startDate);
                 setCheckOut(startDate);
                 setStartDate(selected);
@@ -81,6 +84,7 @@ const CustomCalendar = () => {
             return;
         }
 
+        // If both startDate and endDate exist, selecting a new date resets the range
         setStartDate(day.dateString);
         setCheckIn(day.dateString);
         setEndDate(null);
@@ -89,18 +93,21 @@ const CustomCalendar = () => {
 
     /**
      * Generates an array of all dates between 'start' and 'end' (inclusive).
+     * Uses date-fns for iteration and formatting.
      * Output format: "YYYY-MM-DD"
      */
     const getDatesRange = (start: string, end: string): string[] => {
-        let range: string[] = [];
-        let currentDate = new Date(start);
+        const result: string[] = [];
+        let currentDate = parseISO(start);
+        const endDate = parseISO(end);
 
-        while (currentDate <= new Date(end)) {
-            range.push(currentDate.toISOString().split('T')[0]);
-            // Advance one day
-            currentDate.setDate(currentDate.getDate() + 1);
+        // Continue while currentDate is not after endDate
+        while (!isAfter(currentDate, endDate)) {
+            result.push(format(currentDate, 'yyyy-MM-dd'));
+            currentDate = addDays(currentDate, 1);
         }
-        return range;
+
+        return result;
     };
 
     /**
@@ -146,7 +153,7 @@ const CustomCalendar = () => {
             } else {
                 // Intermediate day of the range
                 marked[date] = {
-                    color: adjustColor(GlobalTheme.colors.main, +20),
+                    color: adjustColor(GlobalTheme.colors.main, 20),
                     textColor: GlobalTheme.colors.white,
                 };
             }
@@ -163,7 +170,8 @@ const CustomCalendar = () => {
                 theme={{
                     arrowColor: GlobalTheme.colors.main,
                 }}
-                minDate={new Date().toISOString().split('T')[0]}
+                // Use date-fns to generate today's date in "YYYY-MM-DD" format
+                minDate={format(new Date(), 'yyyy-MM-dd')}
                 onDayPress={onDayPress}
                 markingType='period' // Marking type for range
                 markedDates={getMarkedDates()}
