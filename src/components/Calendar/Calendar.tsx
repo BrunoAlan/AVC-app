@@ -11,7 +11,6 @@ import {
 } from 'date-fns';
 import { GlobalTheme } from '@src/constants/theme/GlobalTheme';
 import { useSearchParamsStore } from '@src/stores/searchParamsStore';
-import { useCalendars } from '@node_modules/expo-localization/build/Localization';
 
 /**
  * Adjusts a hexadecimal color by a given amount (can be positive or negative).
