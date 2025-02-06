@@ -11,6 +11,10 @@ import {
     clampLosRange,
     getDatesRange,
 } from './helper/CalendarHelper';
+import {
+    type MarkedDates,
+    type DateData,
+} from 'react-native-calendars/src/types';
 
 // Define your minimum and maximum LOS
 const MIN_LOS = 3;
@@ -28,7 +32,7 @@ const CustomCalendar = () => {
      * - If a start date exists but no end date, define the end date with LOS checks.
      * - If both startDate and endDate exist, selecting a new date resets the range.
      */
-    const onDayPress = (day: any) => {
+    const onDayPress = (day: DateData) => {
         // 1) If no start date, this is the first selection
         if (!startDate) {
             setStartDate(day.dateString);
@@ -64,7 +68,7 @@ const CustomCalendar = () => {
      * Returns the "markedDates" object required by react-native-calendars
      * to display the date range with custom styles.
      */
-    const getMarkedDates = () => {
+    const getMarkedDates = (): MarkedDates => {
         // If there is no start date, do not mark anything
         if (!startDate) return {};
 
