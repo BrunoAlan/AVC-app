@@ -20,7 +20,6 @@ export const getProperties = async ({
         const { data } = await bookingFlowApi.post(
             `/v2/ee/channels/${channelId}/offers`,
             {
-                isMobile: true,
                 checkIn,
                 checkOut,
                 occupancy: [
