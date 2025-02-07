@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import { GlobalTheme } from '@src/constants/theme/GlobalTheme';
 import { useSearchParamsStore } from '@src/stores/searchParamsStore';
 
-// Helpers (extracted for better readability)
 import {
     adjustColor,
     clampLosRange,
@@ -16,7 +15,7 @@ import {
     type DateData,
 } from 'react-native-calendars/src/types';
 
-// Define your minimum and maximum LOS
+// Define minimum and maximum LOS
 const MIN_LOS = 3;
 const MAX_LOS = 5;
 
